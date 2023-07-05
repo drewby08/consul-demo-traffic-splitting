@@ -12,12 +12,12 @@ services:
       MESSAGE: "Service V2"
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.5
+        ipv4_address: 10.12.0.5
   api_proxy_v2:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.13.7-contrib-debug-v1.26.0
     environment:
-      CONSUL_HTTP_ADDR: 10.5.0.2:8500
-      CONSUL_GRPC_ADDR: 10.5.0.2:8502
+      CONSUL_HTTP_ADDR: 10.12.0.2:8500
+      CONSUL_GRPC_ADDR: 10.12.0.2:8502
       SERVICE_CONFIG: /config/api_v2.json
     volumes:
       - "./service_config:/config"
