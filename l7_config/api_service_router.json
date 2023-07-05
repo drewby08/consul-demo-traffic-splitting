@@ -1,0 +1,36 @@
+{
+  "kind": "service-router",
+  "name": "api",
+  "routes": [
+    {
+      "match": {
+        "HTTP": {
+          "header": [
+          {
+            "Name": "x-canary",
+            "Exact": "1"
+          }
+         ]
+        }
+      },
+      "destination": {
+        "ServiceSubset": "v1"
+      }
+    },
+    {
+      "match": {
+        "HTTP": {
+          "header": [
+          {
+            "Name": "x-canary",
+            "Exact": "2"
+          }
+         ]
+        }
+      },
+      "destination": {
+        "ServiceSubset": "v2"
+      }
+    }
+  ]
+}

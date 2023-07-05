@@ -15,7 +15,7 @@ services:
       - 8500:8500
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.2
+        ipv4_address: 10.12.0.2
 
   # Define web service and envoy sidecar proxy
   web:
@@ -28,14 +28,14 @@ services:
       HTTP_CLIENT_KEEP_ALIVES: "false"
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.3
+        ipv4_address: 10.12.0.3
     ports:
       - 9090:9090
   web_envoy:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.13.7-contrib-debug-v1.26.0
     environment:
-      CONSUL_HTTP_ADDR: 10.5.0.2:8500
-      CONSUL_GRPC_ADDR: 10.5.0.2:8502
+      CONSUL_HTTP_ADDR: 10.12.0.2:8500
+      CONSUL_GRPC_ADDR: 10.12.0.2:8502
       SERVICE_CONFIG: /config/web.json
     volumes:
       - "./service_config:/config"
@@ -50,12 +50,12 @@ services:
       MESSAGE: "Service V1"
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.4
+        ipv4_address: 10.12.0.4
   api_proxy_v1:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.13.7-contrib-debug-v1.26.0
     environment:
-      CONSUL_HTTP_ADDR: 10.5.0.2:8500
-      CONSUL_GRPC_ADDR: 10.5.0.2:8502
+      CONSUL_HTTP_ADDR: 10.12.0.2:8500
+      CONSUL_GRPC_ADDR: 10.12.0.2:8502
       SERVICE_CONFIG: /config/api_v1.json
     volumes:
       - "./service_config:/config"
@@ -67,4 +67,4 @@ networks:
     driver: bridge
     ipam:
      config:
-       - subnet: 10.5.0.0/16
+       - subnet: 10.12.0.0/16
